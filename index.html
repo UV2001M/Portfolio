@@ -28,12 +28,10 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);li
 #progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--sage),var(--gold));z-index:9999;width:0%;transition:width .1s;pointer-events:none}
 #cursor-glow{pointer-events:none;position:fixed;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(125,155,118,0.07) 0%,transparent 70%);transform:translate(-50%,-50%);z-index:0;top:0;left:0;transition:left .05s,top .05s}
 
-/* BACK TO TOP */
 #btt{position:fixed;bottom:2rem;right:2rem;z-index:800;width:44px;height:44px;border-radius:50%;background:var(--sage);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;box-shadow:0 4px 16px rgba(125,155,118,.4)}
 #btt.show{opacity:1;transform:translateY(0)}
 #btt:hover{background:#6a8a63;transform:translateY(-3px)}
 
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:999;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s,background .3s}
 nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:1px}
@@ -46,7 +44,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .dark-toggle{background:none;border:1.5px solid var(--border);border-radius:20px;padding:.3rem .75rem;cursor:pointer;font-size:.8rem;color:var(--muted);transition:all .2s}
 .dark-toggle:hover{border-color:var(--sage);color:var(--sage)}
 
-/* HAMBURGER */
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:.25rem}
 .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -58,7 +55,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .mobile-menu a:hover{color:var(--sage)}
 .mobile-dark-toggle{background:none;border:1.5px solid var(--border);border-radius:20px;padding:.45rem 1rem;cursor:pointer;font-size:.85rem;color:var(--muted);width:fit-content;margin-top:.25rem}
 
-/* HERO */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 2.5rem 4rem;max-width:1100px;margin:0 auto;position:relative;z-index:1}
 .hero-inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem}
 .hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--sage);margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
@@ -78,7 +74,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
 
-/* AVATAR PHOTO */
 .avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;flex-shrink:0}
 .avatar{width:200px;height:200px;border-radius:50%;border:3px solid var(--sage-light);position:relative;box-shadow:0 8px 32px rgba(125,155,118,.25);overflow:hidden;background:var(--sage-pale);cursor:pointer;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
 .avatar:hover{transform:scale(1.04) rotate(-1deg)}
@@ -87,21 +82,18 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 @keyframes ringPulse{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.05);opacity:.15}}
 .avatar-label{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:500}
 
-/* BTNS */
 .btn{padding:.8rem 1.75rem;font-size:.85rem;font-weight:600;border-radius:7px;cursor:pointer;text-decoration:none;transition:all .2s;letter-spacing:.3px;display:inline-flex;align-items:center;gap:.4rem;border:none}
 .btn-sage{background:var(--sage);color:#fff}
 .btn-sage:hover{background:#6a8a63;transform:translateY(-2px);box-shadow:0 10px 24px rgba(125,155,118,.3)}
 .btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
 .btn-outline:hover{border-color:var(--sage);color:var(--sage);transform:translateY(-2px)}
 
-/* SECTIONS */
 .sec-wrap{padding:100px 2.5rem;max-width:1100px;margin:0 auto}
 .sec-label{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);margin-bottom:.6rem;display:flex;align-items:center;gap:.75rem}
 .sec-label::after{content:'';flex:0 0 30px;height:1px;background:var(--sage);opacity:.4}
 .sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.2}
 .divider{width:52px;height:3px;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:2px;margin-bottom:2.5rem}
 
-/* ABOUT */
 #about-wrap{background:var(--card);transition:background .3s}
 .about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center}
 .about-p{font-size:1rem;color:var(--muted);line-height:1.85;margin-bottom:1rem}
@@ -112,7 +104,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .stat-n{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;color:var(--sage);line-height:1;margin-bottom:.3rem}
 .stat-l{font-size:.78rem;color:var(--muted);font-weight:500}
 
-/* EDUCATION */
 #edu-wrap{background:var(--cream-dark);transition:background .3s}
 .edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
 .edu-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden}
@@ -123,12 +114,10 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .edu-period{font-size:.75rem;color:var(--muted);margin-bottom:.75rem}
 .edu-detail{font-size:.83rem;color:var(--muted);line-height:1.6}
 
-/* FILTER */
 .filter-tabs{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
 .filter-btn{padding:.38rem 1rem;font-size:.78rem;font-weight:600;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
 .filter-btn:hover,.filter-btn.active{background:var(--sage);color:#fff;border-color:var(--sage)}
 
-/* TIMELINE */
 .timeline{position:relative;padding-left:1.5rem}
 .timeline::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--sage),var(--gold),var(--sage))}
 .tl-item{position:relative;margin-bottom:2.25rem;opacity:0;transform:translateX(-24px);transition:opacity .55s,transform .55s}
@@ -146,7 +135,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .tl-list li{font-size:.87rem;color:var(--muted);padding-left:1.1rem;position:relative;margin-bottom:.35rem;line-height:1.6}
 .tl-list li::before{content:'→';position:absolute;left:0;color:var(--sage-light);font-size:.78rem}
 
-/* PUBLICATIONS */
 #pub-wrap{background:var(--cream-dark);transition:background .3s}
 .pub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem}
 .pub-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column}
@@ -157,7 +145,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .pub-a{font-size:.8rem;font-weight:600;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:gap .2s}
 .pub-a:hover{gap:.55rem}
 
-/* SKILLS */
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem}
 .skill-g h3{font-size:.7rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
 .pills{display:flex;flex-wrap:wrap;gap:.55rem}
@@ -166,7 +153,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .pill.ai{border-color:rgba(201,168,76,.5)}
 .pill.ai:hover{background:var(--gold);border-color:var(--gold)}
 
-/* CO-CURRICULAR */
 #cocurr-wrap{background:var(--card);transition:background .3s}
 .cocurr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
 .cocurr-card{background:var(--cream);border:1px solid var(--border);border-radius:13px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:transform .2s,box-shadow .2s}
@@ -176,7 +162,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .cocurr-sub{font-size:.8rem;color:var(--muted);line-height:1.55}
 .cocurr-badge{display:inline-block;margin-top:.4rem;font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--sage-pale);color:var(--sage);padding:.15rem .55rem;border-radius:10px}
 
-/* CONTACT */
 #contact-wrap{background:#1A1A1A}
 .contact-inner{max-width:1100px;margin:0 auto;padding:100px 2.5rem;text-align:center}
 .contact-inner .sec-label{justify-content:center;color:#7D9B76}
@@ -199,12 +184,6 @@ nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
 .form-submit{width:100%;margin-top:.5rem}
 footer{background:#111;border-top:1px solid #222;text-align:center;padding:1.25rem;font-size:.75rem;color:#444;letter-spacing:.3px}
 
-/* SOUND TOGGLE */
-.sound-toggle{position:fixed;bottom:2rem;left:2rem;z-index:800;width:44px;height:44px;border-radius:50%;background:var(--card);color:var(--muted);border:1.5px solid var(--border);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 4px 16px var(--shadow)}
-.sound-toggle:hover{border-color:var(--sage);color:var(--sage)}
-.sound-toggle.on{background:var(--sage);color:#fff;border-color:var(--sage)}
-
-/* ANIMATIONS */
 .fade-up{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
 .fade-up.vis{opacity:1;transform:translateY(0)}
 .delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
@@ -220,14 +199,12 @@ footer{background:#111;border-top:1px solid #222;text-align:center;padding:1.25r
   .c-links{gap:1.5rem}
   .sec-wrap{padding:70px 1.5rem}
   #btt{bottom:1.2rem;right:1.2rem}
-  .sound-toggle{bottom:1.2rem;left:1.2rem}
 }
 </style>
 
 <div id="progress"></div>
 <div id="cursor-glow"></div>
 <button id="btt" aria-label="Back to top">↑</button>
-<button class="sound-toggle" id="soundBtn" title="Toggle sounds">🔇</button>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about-wrap" class="mob-link">About</a>
@@ -274,7 +251,7 @@ footer{background:#111;border-top:1px solid #222;text-align:center;padding:1.25r
         <span class="tw-text" id="tw"></span><span class="cursor">|</span>
       </div>
       <div class="hero-btns">
-        <a href="https://drive.google.com/uc?export=download&id=12MERqvAIdregNDLMJ-Jh1n-4fNRpFadf" class="btn btn-sage" target="_blank">⬇ Download CV</a>
+        <a href="https://drive.google.com/file/d/12MERqvAIdregNDLMJ-Jh1n-4fNRpFadf/view?usp=sharing" class="btn btn-sage" target="_blank">⬇ Download CV</a>
         <a href="#exp-sec" class="btn btn-outline">View Experience</a>
       </div>
     </div>
@@ -282,7 +259,7 @@ footer{background:#111;border-top:1px solid #222;text-align:center;padding:1.25r
       <div style="position:relative;display:flex;align-items:center;justify-content:center">
         <div class="avatar-ring"></div>
         <div class="avatar" id="avatarEl">
-          <img src="https://i.imgur.com/placeholder.png" alt="Ujjval Verma" id="avatarImg" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex'">
+          <img src="photo.jpg" alt="Ujjval Verma" id="avatarImg" style="width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;border-radius:50%" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex'">
           <div id="avatarFallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--sage);letter-spacing:2px">UV</div>
         </div>
       </div>
@@ -384,7 +361,7 @@ footer{background:#111;border-top:1px solid #222;text-align:center;padding:1.25r
       </div>
       <div class="c-item"><span class="c-lbl">Location</span><span class="c-val">Mumbai, Maharashtra</span></div>
     </div>
-    <a href="https://drive.google.com/uc?export=download&id=12MERqvAIdregNDLMJ-Jh1n-4fNRpFadf" class="btn btn-sage" target="_blank">⬇ Download CV</a>
+    <a href="https://drive.google.com/file/d/12MERqvAIdregNDLMJ-Jh1n-4fNRpFadf/view?usp=sharing" class="btn btn-sage" target="_blank">⬇ Download CV</a>
     <div class="contact-form">
       <div id="form-success" style="display:none;background:#1e3d1e;border:1px solid #7D9B76;border-radius:7px;padding:1.25rem;color:#A8C5A2;font-size:.9rem;margin-bottom:1rem;text-align:center;">✅ Message sent! Ujjval will get back to you shortly.</div>
       <div class="form-row"><label>Your Name</label><input type="text" id="fname" placeholder="e.g. Priya Sharma"></div>
@@ -398,7 +375,6 @@ footer{background:#111;border-top:1px solid #222;text-align:center;padding:1.25r
 <footer>© 2026 Ujjval Verma &nbsp;·&nbsp; Designed with precision &nbsp;·&nbsp; All rights reserved</footer>
 
 <script>
-/* ── DATA ── */
 const internships=[
   {firm:"Bharucha & Partners",role:"Legal Intern — Corporate & Capital Markets",period:"March 2026",area:"capital-markets",areaLabel:"Capital Markets",highlights:["Conducted due diligence on promoters, KMPs, and corporate entities, identifying legal and compliance risks for transaction assessment","Prepared litigation summaries and board/committee notes to support internal transaction evaluation","Developed a compliance checklist on factory accident and fire reporting obligations under Maharashtra law"]},
   {firm:"Khaitan & Co.",role:"Legal Intern — Capital Markets & IPO",period:"September 2025",area:"capital-markets",areaLabel:"Capital Markets",highlights:["Assisted in IPO due diligence and regulatory compliance for public issue transactions under SEBI guidelines","Conducted chapter-wise review and mapping of Draft Red Herring Prospectus (DRHP) per SEBI ICDR Regulations","Supported associates and partners with legal research, disclosure verification, and issue documentation"]},
@@ -429,76 +405,10 @@ const cocurr=[
 ];
 const education=[
   {degree:"BA LLB (Hons.)",school:"NMIMS School of Law, Navi Mumbai",period:"2021 – 2026",detail:"Five-year integrated law program with specialisation in Capital Markets and Corporate Law. Consistently engaged in moot courts, legal research, and publications."},
-
   {degree:"Diploma in Advanced Contract Drafting",school:"Law Sikho",period:"2024",detail:"Intensive certification covering transactional drafting, negotiation clauses, risk allocation, and regulatory compliance in commercial contracts."}
 ];
 
-/* ── WEB AUDIO SOUND ENGINE ── */
-let audioCtx=null,soundOn=false;
-const soundBtn=document.getElementById('soundBtn');
-
-function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
-
-function playTypeKey(vol=0.15){
-  if(!soundOn)return;
-  try{
-    const ctx=getCtx();
-    const buf=ctx.createBuffer(1,ctx.sampleRate*0.04,ctx.sampleRate);
-    const d=buf.getChannelData(0);
-    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
-    const src=ctx.createBufferSource();
-    const g=ctx.createGain();
-    const f=ctx.createBiquadFilter();
-    f.type='bandpass';f.frequency.value=2800+Math.random()*400;f.Q.value=0.8;
-    src.buffer=buf;src.connect(f);f.connect(g);g.connect(ctx.destination);
-    g.gain.setValueAtTime(vol,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.04);
-    src.start();
-  }catch(e){}
-}
-function playClick(){playTypeKey(0.18);}
-function playHover(){playTypeKey(0.07);}
-function playSuccess(){
-  if(!soundOn)return;
-  [0,60,120].forEach(d=>setTimeout(()=>playTypeKey(0.2),d));
-}
-function playCopy(){
-  if(!soundOn)return;
-  [0,40,80,120].forEach(d=>setTimeout(()=>playTypeKey(0.15),d));
-}
-function playNav(){playTypeKey(0.16);}
-function playSection(){
-  if(!soundOn)return;
-  [0,50,100].forEach(d=>setTimeout(()=>playTypeKey(0.12),d));
-}
-
-soundBtn.addEventListener('click',()=>{
-  soundOn=!soundOn;
-  soundBtn.textContent=soundOn?'🔊':'🔇';
-  soundBtn.classList.toggle('on',soundOn);
-  if(soundOn){getCtx();playTone(523,.2,'sine',0.06);}
-});
-
-/* ── ADD SOUND TO ALL INTERACTIVE ELEMENTS ── */
-function wireSound(){
-  document.querySelectorAll('.btn,.filter-btn,.dark-toggle,.mobile-dark-toggle,.copy-btn,.pub-a,#formBtn,#btt').forEach(el=>{
-    el.addEventListener('click',playClick,{passive:true});
-  });
-  document.querySelectorAll('.pill').forEach(el=>{
-    el.addEventListener('mouseenter',playHover,{passive:true});
-  });
-  document.querySelectorAll('.nav-links a,.mob-link').forEach(el=>{
-    el.addEventListener('click',playNav,{passive:true});
-  });
-  document.querySelectorAll('.tl-card,.pub-card,.edu-card,.stat,.cocurr-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{if(soundOn)playTone(660,.04,'sine',0.025);},{passive:true});
-  });
-  document.querySelectorAll('.form-row input,.form-row textarea').forEach(el=>{
-    el.addEventListener('focus',()=>playTone(440,.06,'sine',0.03),{passive:true});
-  });
-}
-
-/* ── TYPEWRITER ── */
+/* TYPEWRITER */
 const phrases=["Capital Markets Law","IPO Compliance & SEBI Regulations","Transactional Due Diligence","Securities Law & DRHP Structuring","Contract Drafting & Compliance","AI-assisted Legal Research"];
 let pi=0,ci=0,del=false;
 const twEl=document.getElementById('tw');
@@ -510,62 +420,57 @@ function typeStep(){
 }
 typeStep();
 
-/* ── PROGRESS BAR ── */
+/* PROGRESS BAR */
 const prog=document.getElementById('progress');
 window.addEventListener('scroll',()=>{
   const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
   prog.style.width=pct+'%';
-},{ passive:true });
+},{passive:true});
 
-/* ── NAV ── */
+/* NAV */
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20),{passive:true});
 
-/* ── ACTIVE NAV HIGHLIGHT ── */
+/* ACTIVE NAV HIGHLIGHT */
 const sections=['about-wrap','edu-wrap','exp-sec','pub-wrap','skills-sec','cocurr-wrap','contact-wrap'];
 const navLinks=document.querySelectorAll('.nav-links a[data-sec]');
 const secObs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting){
-      navLinks.forEach(a=>{
-        a.classList.toggle('active',a.dataset.sec===e.target.id);
-      });
-    }
+    if(e.isIntersecting){navLinks.forEach(a=>{a.classList.toggle('active',a.dataset.sec===e.target.id);});}
   });
 },{threshold:0.35});
 sections.forEach(id=>{const el=document.getElementById(id);if(el)secObs.observe(el);});
 
-/* ── CURSOR GLOW ── */
+/* CURSOR GLOW */
 const glow=document.getElementById('cursor-glow');
 document.addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'},{passive:true});
 
-/* ── BACK TO TOP ── */
+/* BACK TO TOP */
 const btt=document.getElementById('btt');
 window.addEventListener('scroll',()=>btt.classList.toggle('show',window.scrollY>400),{passive:true});
 btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-/* ── DARK MODE ── */
+/* DARK MODE */
 function toggleDark(btn,mBtn){
   document.body.classList.toggle('dark');
   const d=document.body.classList.contains('dark');
   btn.textContent=d?'☀️ Light':'🌙 Dark';
   mBtn.textContent=d?'☀️ Light Mode':'🌙 Dark Mode';
-  playClick();
 }
 const darkBtn=document.getElementById('darkBtn');
 const mobileDarkBtn=document.getElementById('mobileDarkBtn');
 darkBtn.addEventListener('click',()=>toggleDark(darkBtn,mobileDarkBtn));
 mobileDarkBtn.addEventListener('click',()=>toggleDark(darkBtn,mobileDarkBtn));
 
-/* ── HAMBURGER ── */
+/* HAMBURGER */
 const ham=document.getElementById('hamburger');
 const mob=document.getElementById('mobileMenu');
-ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');playClick();});
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');});
 document.querySelectorAll('.mob-link').forEach(a=>{
   a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open');});
 });
 
-/* ── EDUCATION ── */
+/* EDUCATION */
 const eg=document.getElementById('eduGrid');
 education.forEach((e,i)=>{
   const c=document.createElement('div');c.className='edu-card fade-up';
@@ -574,7 +479,7 @@ education.forEach((e,i)=>{
   eg.appendChild(c);
 });
 
-/* ── TIMELINE ── */
+/* TIMELINE */
 const tl=document.getElementById('timeline');
 internships.forEach((d,i)=>{
   const el=document.createElement('div');
@@ -584,7 +489,7 @@ internships.forEach((d,i)=>{
   tl.appendChild(el);
 });
 
-/* ── FILTER ── */
+/* FILTER */
 document.querySelectorAll('.filter-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
@@ -596,7 +501,7 @@ document.querySelectorAll('.filter-btn').forEach(btn=>{
   });
 });
 
-/* ── PUBLICATIONS ── */
+/* PUBLICATIONS */
 const pg=document.getElementById('pubGrid');
 publications.forEach(p=>{
   const c=document.createElement('div');c.className='pub-card fade-up';
@@ -604,7 +509,7 @@ publications.forEach(p=>{
   pg.appendChild(c);
 });
 
-/* ── SKILLS ── */
+/* SKILLS */
 const sg=document.getElementById('skillsGrid');
 skills.forEach(s=>{
   const g=document.createElement('div');g.className='skill-g';
@@ -614,7 +519,7 @@ skills.forEach(s=>{
   sg.appendChild(g);
 });
 
-/* ── CO-CURRICULAR ── */
+/* CO-CURRICULAR */
 const cg=document.getElementById('cocurrGrid');
 cocurr.forEach(c=>{
   const el=document.createElement('div');el.className='cocurr-card fade-up';
@@ -622,7 +527,7 @@ cocurr.forEach(c=>{
   cg.appendChild(el);
 });
 
-/* ── COUNTERS ── */
+/* COUNTERS */
 function animateCounter(el,target){
   let cur=0;const step=Math.ceil(target/40);
   const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv);}el.textContent=cur+(target>=10?'+':'');},40);
@@ -634,22 +539,20 @@ const statObs=new IntersectionObserver(entries=>{
         const t=parseInt(el.dataset.target);delete el.dataset.target;animateCounter(el,t);
       });
       statObs.unobserve(e.target);
-      playSection();
     }
   });
 },{threshold:0.3});
 const sg2=document.querySelector('.stats-grid');if(sg2)statObs.observe(sg2);
 
-/* ── COPY TO CLIPBOARD ── */
+/* COPY TO CLIPBOARD */
 function copyToClipboard(text,btn){
   navigator.clipboard.writeText(text).then(()=>{
     const orig=btn.textContent;btn.textContent='✓ Copied!';
-    playCopy();
     setTimeout(()=>btn.textContent=orig,2000);
   });
 }
 
-/* ── FORMSPREE ── */
+/* FORMSPREE */
 document.getElementById('formBtn').addEventListener('click',async()=>{
   const n=document.getElementById('fname').value.trim();
   const e=document.getElementById('femail').value.trim();
@@ -666,24 +569,13 @@ document.getElementById('formBtn').addEventListener('click',async()=>{
       document.getElementById('form-success').style.display='block';
       ['fname','femail','fmsg'].forEach(id=>document.getElementById(id).value='');
       btn.textContent='Sent ✓';
-      playSuccess();
     }else{btn.textContent='Failed. Try again.';btn.disabled=false;}
   }catch{btn.textContent='Error. Try again.';btn.disabled=false;}
 });
 
-/* ── INTERSECTION OBSERVER (fade-up + tl-items) ── */
+/* INTERSECTION OBSERVER */
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});
 },{threshold:0.08});
 document.querySelectorAll('.fade-up,.tl-item').forEach(el=>obs.observe(el));
-
-/* ── AVATAR PHOTO ── */
-const img=document.getElementById('avatarImg');
-img.src='photo.jpg';
-img.style.cssText='width:100%;height:100%;object-fit:cover;object-position:center 10%;display:block;border-radius:50%';
-document.getElementById('avatarFallback').style.display='none';
-img.onerror=()=>{img.style.display='none';document.getElementById('avatarFallback').style.display='flex';};
-
-/* ── WIRE SOUNDS (after DOM populated) ── */
-wireSound();
 </script>
