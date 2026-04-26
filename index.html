@@ -439,31 +439,37 @@ const soundBtn=document.getElementById('soundBtn');
 
 function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
 
-function playTone(freq,dur,type='sine',vol=0.08){
+function playTypeKey(vol=0.15){
   if(!soundOn)return;
   try{
     const ctx=getCtx();
-    const o=ctx.createOscillator(),g=ctx.createGain();
-    o.connect(g);g.connect(ctx.destination);
-    o.frequency.value=freq;o.type=type;
+    const buf=ctx.createBuffer(1,ctx.sampleRate*0.04,ctx.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*Math.pow(1-i/d.length,3);
+    const src=ctx.createBufferSource();
+    const g=ctx.createGain();
+    const f=ctx.createBiquadFilter();
+    f.type='bandpass';f.frequency.value=2800+Math.random()*400;f.Q.value=0.8;
+    src.buffer=buf;src.connect(f);f.connect(g);g.connect(ctx.destination);
     g.gain.setValueAtTime(vol,ctx.currentTime);
-    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
-    o.start();o.stop(ctx.currentTime+dur);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.04);
+    src.start();
   }catch(e){}
 }
-
-function playClick(){playTone(600,.08,'sine',0.07);}
-function playHover(){playTone(880,.05,'sine',0.03);}
+function playClick(){playTypeKey(0.18);}
+function playHover(){playTypeKey(0.07);}
 function playSuccess(){
   if(!soundOn)return;
-  [523,659,784].forEach((f,i)=>setTimeout(()=>playTone(f,.15,'sine',0.06),i*80));
+  [0,60,120].forEach(d=>setTimeout(()=>playTypeKey(0.2),d));
 }
-function playCopy(){playTone(1046,.12,'sine',0.06);}
-function playNav(){playTone(440,.1,'triangle',0.05);}
+function playCopy(){
+  if(!soundOn)return;
+  [0,40,80,120].forEach(d=>setTimeout(()=>playTypeKey(0.15),d));
+}
+function playNav(){playTypeKey(0.16);}
 function playSection(){
   if(!soundOn)return;
-  playTone(330,.2,'sine',0.04);
-  setTimeout(()=>playTone(440,.15,'sine',0.03),100);
+  [0,50,100].forEach(d=>setTimeout(()=>playTypeKey(0.12),d));
 }
 
 soundBtn.addEventListener('click',()=>{
