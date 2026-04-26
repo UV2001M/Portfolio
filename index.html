@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ujjval Verma — Legal Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF8F4;--cream-dark:#F0EBE3;
+  --sage:#7D9B76;--sage-light:#A8C5A2;--sage-pale:#EEF5ED;
+  --gold:#C9A84C;--gold-light:#E8C97A;
+  --text:#2A2A2A;--muted:#6B6666;--border:#E2DAD0;
+  --shadow:rgba(0,0,0,0.07);--card:#FFFFFF;--nav-bg:rgba(250,248,244,0.92);
+}
+body.dark{
+  --cream:#0F1923;--cream-dark:#111D27;--card:#162230;
+  --text:#E8E0D4;--muted:#8A9BAA;--border:#1E3348;
+  --shadow:rgba(0,0,0,0.4);--nav-bg:rgba(15,25,35,0.95);
+  --sage-pale:rgba(125,155,118,0.15);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);line-height:1.65;overflow-x:hidden;transition:background .3s,color .3s;opacity:0;animation:pageIn .7s ease .1s forwards}
+@keyframes pageIn{to{opacity:1}}
+
+#progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--sage),var(--gold));z-index:9999;width:0%;transition:width .1s;pointer-events:none}
+#cursor-glow{pointer-events:none;position:fixed;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(125,155,118,0.07) 0%,transparent 70%);transform:translate(-50%,-50%);z-index:0;top:0;left:0;transition:left .05s,top .05s}
+
+/* BACK TO TOP */
+#btt{position:fixed;bottom:2rem;right:2rem;z-index:800;width:44px;height:44px;border-radius:50%;background:var(--sage);color:#fff;border:none;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;box-shadow:0 4px 16px rgba(125,155,118,.4)}
+#btt.show{opacity:1;transform:translateY(0)}
+#btt:hover{background:#6a8a63;transform:translateY(-3px)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s,background .3s}
+nav.scrolled{border-color:var(--border);box-shadow:0 2px 24px var(--shadow)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--text);text-decoration:none;letter-spacing:1px}
+.nav-logo span{color:var(--sage)}
+.nav-links{display:flex;gap:1.75rem;list-style:none;align-items:center}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;transition:color .2s;position:relative;padding-bottom:2px}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--sage);transition:width .2s}
+.nav-links a.active,.nav-links a:hover{color:var(--sage)}
+.nav-links a.active::after,.nav-links a:hover::after{width:100%}
+.dark-toggle{background:none;border:1.5px solid var(--border);border-radius:20px;padding:.3rem .75rem;cursor:pointer;font-size:.8rem;color:var(--muted);transition:all .2s}
+.dark-toggle:hover{border-color:var(--sage);color:var(--sage)}
+
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:.25rem}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{position:fixed;top:62px;left:0;right:0;background:var(--nav-bg);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1.5rem 2rem;display:flex;flex-direction:column;gap:1.25rem;z-index:998;transform:translateY(-110%);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.mobile-menu.open{transform:translateY(0)}
+.mobile-menu a{text-decoration:none;color:var(--text);font-size:.95rem;font-weight:500;letter-spacing:.5px;padding:.5rem 0;border-bottom:1px solid var(--border);transition:color .2s}
+.mobile-menu a:hover{color:var(--sage)}
+.mobile-dark-toggle{background:none;border:1.5px solid var(--border);border-radius:20px;padding:.45rem 1rem;cursor:pointer;font-size:.85rem;color:var(--muted);width:fit-content;margin-top:.25rem}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 2.5rem 4rem;max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.hero-inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem}
+.hero-eyebrow{font-size:.72rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--sage);margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
+.hero-eyebrow::after{content:'';flex:0 0 40px;height:1.5px;background:var(--sage);border-radius:2px}
+.hero-top{display:flex;align-items:flex-end;gap:1rem;margin-bottom:.75rem;flex-wrap:wrap}
+.hero-name{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,7vw,5.5rem);font-weight:700;line-height:1.05;color:var(--text)}
+.hero-name span{color:var(--sage)}
+.open-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--sage-pale);border:1px solid var(--sage-light);border-radius:20px;padding:.3rem .85rem;font-size:.72rem;font-weight:600;color:var(--sage);margin-bottom:.9rem}
+.open-dot{width:7px;height:7px;border-radius:50%;background:var(--sage);animation:pulse 1.8s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(125,155,118,.5)}70%{box-shadow:0 0 0 6px rgba(125,155,118,0)}}
+.hero-desig{font-size:1rem;color:var(--muted);margin-bottom:1.25rem}
+.hero-divider{width:60px;height:2px;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:2px;margin-bottom:1.5rem}
+.hero-tagline{font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:var(--gold);margin-bottom:2rem}
+.typewriter-row{font-size:.95rem;color:var(--muted);margin-bottom:2.75rem;min-height:1.5rem;display:flex;align-items:center;gap:.4rem;flex-wrap:wrap}
+.tw-text{color:var(--sage);font-weight:600}
+.cursor{color:var(--sage);animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+
+/* AVATAR PHOTO */
+.avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem;flex-shrink:0}
+.avatar{width:200px;height:200px;border-radius:50%;border:3px solid var(--sage-light);position:relative;box-shadow:0 8px 32px rgba(125,155,118,.25);overflow:hidden;background:var(--sage-pale);cursor:pointer;transition:transform .4s cubic-bezier(.34,1.56,.64,1)}
+.avatar:hover{transform:scale(1.04) rotate(-1deg)}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.avatar-ring{position:absolute;width:216px;height:216px;border-radius:50%;border:1.5px solid var(--sage-light);opacity:.4;animation:ringPulse 3s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.05);opacity:.15}}
+.avatar-label{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:500}
+
+/* BTNS */
+.btn{padding:.8rem 1.75rem;font-size:.85rem;font-weight:600;border-radius:7px;cursor:pointer;text-decoration:none;transition:all .2s;letter-spacing:.3px;display:inline-flex;align-items:center;gap:.4rem;border:none}
+.btn-sage{background:var(--sage);color:#fff}
+.btn-sage:hover{background:#6a8a63;transform:translateY(-2px);box-shadow:0 10px 24px rgba(125,155,118,.3)}
+.btn-outline{background:transparent;color:var(--text);border:1.5px solid var(--border)}
+.btn-outline:hover{border-color:var(--sage);color:var(--sage);transform:translateY(-2px)}
+
+/* SECTIONS */
+.sec-wrap{padding:100px 2.5rem;max-width:1100px;margin:0 auto}
+.sec-label{font-size:.72rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--sage);margin-bottom:.6rem;display:flex;align-items:center;gap:.75rem}
+.sec-label::after{content:'';flex:0 0 30px;height:1px;background:var(--sage);opacity:.4}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.2}
+.divider{width:52px;height:3px;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:2px;margin-bottom:2.5rem}
+
+/* ABOUT */
+#about-wrap{background:var(--card);transition:background .3s}
+.about-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:4rem;align-items:center}
+.about-p{font-size:1rem;color:var(--muted);line-height:1.85;margin-bottom:1rem}
+.about-p strong{color:var(--text)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.stat{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.25rem;text-align:center;transition:transform .2s,box-shadow .2s}
+.stat:hover{transform:translateY(-5px);box-shadow:0 14px 36px var(--shadow)}
+.stat-n{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:700;color:var(--sage);line-height:1;margin-bottom:.3rem}
+.stat-l{font-size:.78rem;color:var(--muted);font-weight:500}
+
+/* EDUCATION */
+#edu-wrap{background:var(--cream-dark);transition:background .3s}
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:transform .2s,box-shadow .2s,border-color .2s;position:relative;overflow:hidden}
+.edu-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--sage),var(--gold))}
+.edu-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px var(--shadow);border-color:var(--sage-light)}
+.edu-degree{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.35rem}
+.edu-school{font-size:.88rem;color:var(--sage);font-weight:600;margin-bottom:.25rem}
+.edu-period{font-size:.75rem;color:var(--muted);margin-bottom:.75rem}
+.edu-detail{font-size:.83rem;color:var(--muted);line-height:1.6}
+
+/* FILTER */
+.filter-tabs{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+.filter-btn{padding:.38rem 1rem;font-size:.78rem;font-weight:600;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:var(--sage);color:#fff;border-color:var(--sage)}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:1.5rem}
+.timeline::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:2px;background:linear-gradient(to bottom,var(--sage),var(--gold),var(--sage))}
+.tl-item{position:relative;margin-bottom:2.25rem;opacity:0;transform:translateX(-24px);transition:opacity .55s,transform .55s}
+.tl-item.vis{opacity:1;transform:translateX(0)}
+.tl-item.hidden{display:none}
+.tl-dot{position:absolute;left:-2.05rem;top:.45rem;width:12px;height:12px;border-radius:50%;background:var(--sage);border:2.5px solid var(--cream);box-shadow:0 0 0 2px var(--sage)}
+.tl-card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:1.4rem 1.6rem;margin-left:.75rem;transition:transform .2s,box-shadow .2s}
+.tl-card:hover{transform:translateX(5px);box-shadow:0 10px 32px var(--shadow)}
+.tl-head{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:.5rem;margin-bottom:.3rem}
+.firm{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--text)}
+.period{font-size:.72rem;color:#fff;background:var(--sage);padding:.18rem .7rem;border-radius:20px;font-weight:500;white-space:nowrap}
+.role{font-size:.82rem;color:var(--gold);font-weight:600;letter-spacing:.3px;margin-bottom:.7rem}
+.area-tag{display:inline-block;font-size:.63rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--sage-pale);color:var(--sage);padding:.15rem .55rem;border-radius:10px;margin-bottom:.5rem}
+.tl-list{list-style:none;padding:0}
+.tl-list li{font-size:.87rem;color:var(--muted);padding-left:1.1rem;position:relative;margin-bottom:.35rem;line-height:1.6}
+.tl-list li::before{content:'→';position:absolute;left:0;color:var(--sage-light);font-size:.78rem}
+
+/* PUBLICATIONS */
+#pub-wrap{background:var(--cream-dark);transition:background .3s}
+.pub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1.5rem}
+.pub-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.75rem;transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column}
+.pub-card:hover{transform:translateY(-7px);box-shadow:0 18px 44px var(--shadow);border-color:var(--sage-light)}
+.pub-j{font-size:.68rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--sage);margin-bottom:.6rem}
+.pub-t{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:var(--text);line-height:1.45;margin-bottom:.65rem}
+.pub-d{font-size:.85rem;color:var(--muted);line-height:1.65;margin-bottom:1.1rem;flex:1}
+.pub-a{font-size:.8rem;font-weight:600;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:.3rem;transition:gap .2s}
+.pub-a:hover{gap:.55rem}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem}
+.skill-g h3{font-size:.7rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.pills{display:flex;flex-wrap:wrap;gap:.55rem}
+.pill{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:.38rem .95rem;font-size:.81rem;font-weight:500;color:var(--text);transition:all .2s;cursor:default}
+.pill:hover{background:var(--sage);color:#fff;border-color:var(--sage);transform:translateY(-2px);box-shadow:0 6px 16px rgba(125,155,118,.25)}
+.pill.ai{border-color:rgba(201,168,76,.5)}
+.pill.ai:hover{background:var(--gold);border-color:var(--gold)}
+
+/* CO-CURRICULAR */
+#cocurr-wrap{background:var(--card);transition:background .3s}
+.cocurr-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.cocurr-card{background:var(--cream);border:1px solid var(--border);border-radius:13px;padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;transition:transform .2s,box-shadow .2s}
+.cocurr-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px var(--shadow)}
+.cocurr-icon{font-size:1.6rem;flex-shrink:0}
+.cocurr-title{font-weight:600;color:var(--text);font-size:.92rem;margin-bottom:.2rem}
+.cocurr-sub{font-size:.8rem;color:var(--muted);line-height:1.55}
+.cocurr-badge{display:inline-block;margin-top:.4rem;font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:var(--sage-pale);color:var(--sage);padding:.15rem .55rem;border-radius:10px}
+
+/* CONTACT */
+#contact-wrap{background:#1A1A1A}
+.contact-inner{max-width:1100px;margin:0 auto;padding:100px 2.5rem;text-align:center}
+.contact-inner .sec-label{justify-content:center;color:#7D9B76}
+.contact-inner .sec-label::after{display:none}
+.contact-inner .sec-title{color:#F0EBE3;margin-bottom:.75rem}
+.contact-sub{font-size:.95rem;color:#888;font-style:italic;margin-bottom:3rem}
+.c-links{display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;margin-bottom:3rem}
+.c-item{display:flex;flex-direction:column;align-items:center;gap:.35rem}
+.c-lbl{font-size:.65rem;letter-spacing:1.8px;text-transform:uppercase;color:#7D9B76;font-weight:600}
+.c-val{font-size:.95rem;color:#D4CFC8;text-decoration:none;transition:color .2s}
+.c-val:hover{color:#A8C5A2}
+.copy-btn{background:none;border:none;cursor:pointer;color:#7D9B76;font-size:.78rem;margin-top:.2rem;padding:.15rem .5rem;border-radius:5px;transition:background .2s}
+.copy-btn:hover{background:rgba(125,155,118,.15)}
+.contact-form{max-width:520px;margin:2.5rem auto 0;text-align:left}
+.form-row{margin-bottom:1rem}
+.form-row label{display:block;font-size:.72rem;letter-spacing:1px;text-transform:uppercase;color:#7D9B76;font-weight:600;margin-bottom:.4rem}
+.form-row input,.form-row textarea{width:100%;background:#252525;border:1px solid #333;border-radius:7px;padding:.75rem 1rem;color:#D4CFC8;font-size:.9rem;font-family:'Inter',sans-serif;transition:border-color .2s;resize:vertical}
+.form-row input:focus,.form-row textarea:focus{outline:none;border-color:#7D9B76}
+.form-row textarea{min-height:110px}
+.form-submit{width:100%;margin-top:.5rem}
+footer{background:#111;border-top:1px solid #222;text-align:center;padding:1.25rem;font-size:.75rem;color:#444;letter-spacing:.3px}
+
+/* SOUND TOGGLE */
+.sound-toggle{position:fixed;bottom:2rem;left:2rem;z-index:800;width:44px;height:44px;border-radius:50%;background:var(--card);color:var(--muted);border:1.5px solid var(--border);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;box-shadow:0 4px 16px var(--shadow)}
+.sound-toggle:hover{border-color:var(--sage);color:var(--sage)}
+.sound-toggle.on{background:var(--sage);color:#fff;border-color:var(--sage)}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.fade-up.vis{opacity:1;transform:translateY(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}
+
+@media(max-width:768px){
+  .hero-inner{grid-template-columns:1fr;gap:2rem}
+  .avatar-wrap{order:-1;align-items:flex-start;flex-direction:row;gap:1rem}
+  .avatar{width:90px;height:90px}
+  .avatar-ring{width:98px;height:98px}
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .c-links{gap:1.5rem}
+  .sec-wrap{padding:70px 1.5rem}
+  #btt{bottom:1.2rem;right:1.2rem}
+  .sound-toggle{bottom:1.2rem;left:1.2rem}
+}
+</style>
+
+<div id="progress"></div>
+<div id="cursor-glow"></div>
+<button id="btt" aria-label="Back to top">↑</button>
+<button class="sound-toggle" id="soundBtn" title="Toggle sounds">🔇</button>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about-wrap" class="mob-link">About</a>
+  <a href="#edu-wrap" class="mob-link">Education</a>
+  <a href="#exp-sec" class="mob-link">Experience</a>
+  <a href="#pub-wrap" class="mob-link">Publications</a>
+  <a href="#skills-sec" class="mob-link">Skills</a>
+  <a href="#cocurr-wrap" class="mob-link">Activities</a>
+  <a href="#contact-wrap" class="mob-link">Contact</a>
+  <button class="mobile-dark-toggle" id="mobileDarkBtn">🌙 Dark Mode</button>
+</div>
+
+<nav id="nav">
+  <a class="nav-logo" href="#hero">UV<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about-wrap" data-sec="about-wrap">About</a></li>
+    <li><a href="#edu-wrap" data-sec="edu-wrap">Education</a></li>
+    <li><a href="#exp-sec" data-sec="exp-sec">Experience</a></li>
+    <li><a href="#pub-wrap" data-sec="pub-wrap">Publications</a></li>
+    <li><a href="#skills-sec" data-sec="skills-sec">Skills</a></li>
+    <li><a href="#cocurr-wrap" data-sec="cocurr-wrap">Activities</a></li>
+    <li><a href="#contact-wrap" data-sec="contact-wrap">Contact</a></li>
+    <li><button class="dark-toggle" id="darkBtn">🌙 Dark</button></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Legal Portfolio · 2026</div>
+      <div class="hero-top">
+        <h1 class="hero-name">Ujjval <span>Verma</span></h1>
+      </div>
+      <div class="open-badge"><span class="open-dot"></span> Open to Opportunities</div>
+      <div class="hero-desig">Final Year BA LLB (Hons.) &nbsp;·&nbsp; NMIMS School of Law, Navi Mumbai</div>
+      <div class="hero-divider"></div>
+      <div class="hero-tagline">"Law. Markets. Precision."</div>
+      <div class="typewriter-row">
+        <span style="color:var(--muted)">Currently focused on →&nbsp;</span>
+        <span class="tw-text" id="tw"></span><span class="cursor">|</span>
+      </div>
+      <div class="hero-btns">
+        <a href="https://drive.google.com/uc?export=download&id=12MERqvAIdregNDLMJ-Jh1n-4fNRpFadf" class="btn btn-sage" target="_blank">⬇ Download CV</a>
+        <a href="#exp-sec" class="btn btn-outline">View Experience</a>
+      </div>
+    </div>
+    <div class="avatar-wrap fade-up">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center">
+        <div class="avatar-ring"></div>
+        <div class="avatar" id="avatarEl">
+          <img src="https://i.imgur.com/placeholder.png" alt="Ujjval Verma" id="avatarImg" onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex'">
+          <div id="avatarFallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--sage);letter-spacing:2px">UV</div>
+        </div>
+      </div>
+      <div class="avatar-label">Ujjval Verma</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div id="about-wrap">
+  <div class="sec-wrap">
+    <div class="about-grid">
+      <div>
+        <div class="sec-label fade-up">About Me</div>
+        <h2 class="sec-title fade-up delay-1">A law student built for transactional work.</h2>
+        <div class="divider fade-up delay-2"></div>
+        <p class="about-p fade-up delay-2">I'm <strong>Ujjval Verma</strong>, a final-year BA LLB (Hons.) student at <strong>NMIMS School of Law, Navi Mumbai</strong>, with a sharp focus on <strong>Capital Markets and Corporate Law</strong>. My legal interests sit at the intersection of securities regulation, IPO compliance, and transactional due diligence.</p>
+        <p class="about-p fade-up delay-3">Across <strong>seven internships</strong> at firms including <strong>Khaitan & Co.</strong> and <strong>Bharucha & Partners</strong>, I've built hands-on exposure to SEBI ICDR compliance, promoter due diligence, DRHP structuring, and regulatory drafting — work that demands both analytical rigour and commercial awareness.</p>
+      </div>
+      <div class="stats-grid fade-up delay-2">
+        <div class="stat"><div class="stat-n" data-target="7">0</div><div class="stat-l">Internships Completed</div></div>
+        <div class="stat"><div class="stat-n" data-target="3">0</div><div class="stat-l">Published Articles</div></div>
+        <div class="stat"><div class="stat-n" data-target="5">0</div><div class="stat-l">Years of Study</div></div>
+        <div class="stat"><div class="stat-n" data-target="10">0</div><div class="stat-l">Legal Documents Drafted</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<div id="edu-wrap">
+  <div class="sec-wrap">
+    <div class="sec-label fade-up">Education</div>
+    <h2 class="sec-title fade-up delay-1">Academic Foundation</h2>
+    <div class="divider fade-up delay-2"></div>
+    <div class="edu-grid" id="eduGrid"></div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section class="sec-wrap" id="exp-sec">
+  <div class="sec-label fade-up">Experience</div>
+  <h2 class="sec-title fade-up delay-1">A journey across India's leading law firms.</h2>
+  <div class="divider fade-up delay-2"></div>
+  <div class="filter-tabs fade-up delay-2">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="capital-markets">Capital Markets</button>
+    <button class="filter-btn" data-filter="litigation">Litigation</button>
+    <button class="filter-btn" data-filter="ip">IP & Commercial</button>
+  </div>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<!-- PUBLICATIONS -->
+<div id="pub-wrap">
+  <div class="sec-wrap">
+    <div class="sec-label fade-up">Publications</div>
+    <h2 class="sec-title fade-up delay-1">Research & Written Work</h2>
+    <div class="divider fade-up delay-2"></div>
+    <div class="pub-grid" id="pubGrid"></div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="sec-wrap" id="skills-sec">
+  <div class="sec-label fade-up">Skills & Competencies</div>
+  <h2 class="sec-title fade-up delay-1">What I bring to the table.</h2>
+  <div class="divider fade-up delay-2"></div>
+  <div class="skills-grid fade-up delay-2" id="skillsGrid"></div>
+</section>
+
+<!-- ACTIVITIES -->
+<div id="cocurr-wrap">
+  <div class="sec-wrap">
+    <div class="sec-label fade-up">Beyond the Classroom</div>
+    <h2 class="sec-title fade-up delay-1">Activities & Recognition</h2>
+    <div class="divider fade-up delay-2"></div>
+    <div class="cocurr-grid" id="cocurrGrid"></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="contact-wrap">
+  <div class="contact-inner">
+    <div class="sec-label">Get in Touch</div>
+    <h2 class="sec-title">Let's connect.</h2>
+    <p class="contact-sub">"Open to opportunities in capital markets and transactional law."</p>
+    <div class="c-links">
+      <div class="c-item">
+        <span class="c-lbl">Email</span>
+        <a class="c-val" href="mailto:ujjval2001@gmail.com">ujjval2001@gmail.com</a>
+        <button class="copy-btn" onclick="copyToClipboard('ujjval2001@gmail.com',this)">⎘ Copy</button>
+      </div>
+      <div class="c-item"><span class="c-lbl">LinkedIn</span><a class="c-val" href="https://www.linkedin.com/in/ujjval-verma05" target="_blank">linkedin.com/in/ujjval-verma05</a></div>
+      <div class="c-item">
+        <span class="c-lbl">Phone</span>
+        <a class="c-val" href="tel:+918839547396">+91 88395 47396</a>
+        <button class="copy-btn" onclick="copyToClipboard('+918839547396',this)">⎘ Copy</button>
+      </div>
+      <div class="c-item"><span class="c-lbl">Location</span><span class="c-val">Mumbai, Maharashtra</span></div>
+    </div>
+    <a href="https://drive.google.com/uc?export=download&id=12MERqvAIdregNDLMJ-Jh1n-4fNRpFadf" class="btn btn-sage" target="_blank">⬇ Download CV</a>
+    <div class="contact-form">
+      <div id="form-success" style="display:none;background:#1e3d1e;border:1px solid #7D9B76;border-radius:7px;padding:1.25rem;color:#A8C5A2;font-size:.9rem;margin-bottom:1rem;text-align:center;">✅ Message sent! Ujjval will get back to you shortly.</div>
+      <div class="form-row"><label>Your Name</label><input type="text" id="fname" placeholder="e.g. Priya Sharma"></div>
+      <div class="form-row"><label>Your Email</label><input type="email" id="femail" placeholder="priya@lawfirm.com"></div>
+      <div class="form-row"><label>Message</label><textarea id="fmsg" placeholder="I'd like to discuss an opportunity..."></textarea></div>
+      <button class="btn btn-sage form-submit" id="formBtn">Send Message →</button>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Ujjval Verma &nbsp;·&nbsp; Designed with precision &nbsp;·&nbsp; All rights reserved</footer>
+
+<script>
+/* ── DATA ── */
+const internships=[
+  {firm:"Bharucha & Partners",role:"Legal Intern — Corporate & Capital Markets",period:"March 2026",area:"capital-markets",areaLabel:"Capital Markets",highlights:["Conducted due diligence on promoters, KMPs, and corporate entities, identifying legal and compliance risks for transaction assessment","Prepared litigation summaries and board/committee notes to support internal transaction evaluation","Developed a compliance checklist on factory accident and fire reporting obligations under Maharashtra law"]},
+  {firm:"Khaitan & Co.",role:"Legal Intern — Capital Markets & IPO",period:"September 2025",area:"capital-markets",areaLabel:"Capital Markets",highlights:["Assisted in IPO due diligence and regulatory compliance for public issue transactions under SEBI guidelines","Conducted chapter-wise review and mapping of Draft Red Herring Prospectus (DRHP) per SEBI ICDR Regulations","Supported associates and partners with legal research, disclosure verification, and issue documentation"]},
+  {firm:"Khurana & Khurana",role:"Legal Intern — Intellectual Property",period:"June 2025",area:"ip",areaLabel:"IP & Commercial",highlights:["Drafted case briefs, legal notes, and arbitration-related documentation for ongoing disputes","Reviewed franchise and licensing agreements, identifying key risks and compliance clauses","Authored legal articles on Intellectual Property and Corporate Law for the firm's knowledge base"]},
+  {firm:"Ramesh Tripathi & Associates",role:"Legal Intern — Civil & Criminal Litigation",period:"December 2024",area:"litigation",areaLabel:"Litigation",highlights:["Conducted legal research on civil and criminal law provisions to build case strategies","Drafted 10+ legal documents including notices, NIA applications, bail applications, and civil suits","Assisted in filing suits in the High Court, District Courts, and Civil Courts including E-filing"]},
+  {firm:"PD Jain & Co.",role:"Legal Intern — Corporate & Financial Law",period:"June 2024",area:"litigation",areaLabel:"Litigation",highlights:["Researched SARFAESI Act compliance for NBFCs, defending against borrower counterclaims","Assisted in preparing arguments for corporate governance cases in NCLT","Independently researched and authored legal articles on subject-matter topics"]},
+  {firm:"Adv. Satish L. Maneshinde",role:"Legal Intern — Criminal Defence",period:"December 2023",area:"litigation",areaLabel:"Litigation",highlights:["Contributed to bail strategy in trials under IPC Sections 375 & 376 through comprehensive case law research","Drafted bail applications and engaged in fieldwork at courts and police stations"]},
+  {firm:"Surange & Company",role:"Legal Intern — Civil & Commercial Litigation",period:"June 2023",area:"litigation",areaLabel:"Litigation",highlights:["Drafted legal notices for delayed payments under the MSME Act and Negotiable Instruments Act","Filed civil suits, recovery matters, and cheque dishonor complaints in relevant jurisdictions","Researched provisions under CrPC, CPC, and Companies Act to assist in case preparation"]}
+];
+const publications=[
+  {journal:"IIPRD Blog",title:"IP Valuation in Corporate Finance: Can Trademarks Get You a Loan?",desc:"Explored the potential of intellectual property, especially trademarks, as financial assets for collateralization and funding in corporate finance.",link:"https://lnk.ink/uvipblog"},
+  {journal:"Indian Journal of Law and Legal Research",title:"Navigating India's Regulatory Landscape: Compliance for Cryptocurrency & Blockchain Holding Companies",desc:"Analysed policies from SEBI, RBI, and MCA impacting the crypto and blockchain sector, focusing on disclosure requirements in corporate governance.",link:"https://www.ijllr.com/post/navigating-india-s-regulatory-landscape-compliance-for-cryptocurrency-blockchain-holding-companie"},
+  {journal:"Legal Service India E-Journal",title:"Resolving Family Land Disputes: Why Mediation and Arbitration Are Better Than Lawsuits",desc:"Examined complexities of family property disputes and advocated for ADR methods like mediation and arbitration over conventional litigation.",link:"https://www.legalserviceindia.com/legal/article-16634-resolving-family-land-disputes-why-mediation-and-arbitration-are-better-than-lawsuits.html"}
+];
+const skills=[
+  {group:"Practice Areas",pills:["Capital Markets","Civil Litigation","Corporate Law","ADR / Arbitration","IP Law"],ai:false},
+  {group:"Regulatory Frameworks",pills:["SEBI ICDR 2018","SEBI LODR 2015","Companies Act 2013","CrPC / CPC"],ai:false},
+  {group:"Legal Skills",pills:["Legal Research","Regulatory Drafting","Compliance Tracking","Contract Drafting","Document Review","Legal Writing","Court Filing / E-filing"],ai:false},
+  {group:"AI & Legal Tech",pills:["ChatGPT / Claude for Legal Research","AI-assisted Contract Review","LegalTech Workflow Automation","Prompt Engineering for Law","SCC Online","Manupatra"],ai:true},
+  {group:"Certifications & Tools",pills:["Diploma in Advanced Contract Drafting","Law Sikho","MS Word / Excel","Hindi · English"],ai:false}
+];
+const cocurr=[
+  {icon:"⚖️",title:"5th Intra Moot Court Competition",sub:"Participated in oral advocacy and written submissions, applying court procedure and substantive law under competition conditions."},
+  {icon:"🏅",title:"Top 10 Mediator & Counsel",sub:"2nd Intra-Mediation Competition — Recognised among the top 10 mediators and counsel for negotiation skills and dispute resolution strategy.",badge:"Award"},
+  {icon:"🎪",title:"Law Fest 'ATULYA' 2023 & 2024",sub:"Key member in planning and executing NMIMS's college law fest, handling public relations and coordination across both editions.",badge:"Leadership"},
+  {icon:"📣",title:"Apex Member — Public Relations Committee",sub:"Managed media outreach, sponsorships, and guest coordination for college events. August 2023 – June 2025.",badge:"2 Years"},
+  {icon:"🤝",title:"Art of Living — Seva Initiatives",sub:"Volunteered in food distribution drives and facilitated guided meditation workshops for community well-being."}
+];
+const education=[
+  {degree:"BA LLB (Hons.)",school:"NMIMS School of Law, Navi Mumbai",period:"2021 – 2026",detail:"Five-year integrated law program with specialisation in Capital Markets and Corporate Law. Consistently engaged in moot courts, legal research, and publications."},
+  {degree:"Higher Secondary (Science)",school:"DPS — Delhi Public School",period:"Completed 2021",detail:"Science stream with focus on analytical reasoning. Foundation for structured thinking applied to legal study."},
+  {degree:"Diploma in Advanced Contract Drafting",school:"Law Sikho",period:"2024",detail:"Intensive certification covering transactional drafting, negotiation clauses, risk allocation, and regulatory compliance in commercial contracts."}
+];
+
+/* ── WEB AUDIO SOUND ENGINE ── */
+let audioCtx=null,soundOn=false;
+const soundBtn=document.getElementById('soundBtn');
+
+function getCtx(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();return audioCtx;}
+
+function playTone(freq,dur,type='sine',vol=0.08){
+  if(!soundOn)return;
+  try{
+    const ctx=getCtx();
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    o.frequency.value=freq;o.type=type;
+    g.gain.setValueAtTime(vol,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
+    o.start();o.stop(ctx.currentTime+dur);
+  }catch(e){}
+}
+
+function playClick(){playTone(600,.08,'sine',0.07);}
+function playHover(){playTone(880,.05,'sine',0.03);}
+function playSuccess(){
+  if(!soundOn)return;
+  [523,659,784].forEach((f,i)=>setTimeout(()=>playTone(f,.15,'sine',0.06),i*80));
+}
+function playCopy(){playTone(1046,.12,'sine',0.06);}
+function playNav(){playTone(440,.1,'triangle',0.05);}
+function playSection(){
+  if(!soundOn)return;
+  playTone(330,.2,'sine',0.04);
+  setTimeout(()=>playTone(440,.15,'sine',0.03),100);
+}
+
+soundBtn.addEventListener('click',()=>{
+  soundOn=!soundOn;
+  soundBtn.textContent=soundOn?'🔊':'🔇';
+  soundBtn.classList.toggle('on',soundOn);
+  if(soundOn){getCtx();playTone(523,.2,'sine',0.06);}
+});
+
+/* ── ADD SOUND TO ALL INTERACTIVE ELEMENTS ── */
+function wireSound(){
+  document.querySelectorAll('.btn,.filter-btn,.dark-toggle,.mobile-dark-toggle,.copy-btn,.pub-a,#formBtn,#btt').forEach(el=>{
+    el.addEventListener('click',playClick,{passive:true});
+  });
+  document.querySelectorAll('.pill').forEach(el=>{
+    el.addEventListener('mouseenter',playHover,{passive:true});
+  });
+  document.querySelectorAll('.nav-links a,.mob-link').forEach(el=>{
+    el.addEventListener('click',playNav,{passive:true});
+  });
+  document.querySelectorAll('.tl-card,.pub-card,.edu-card,.stat,.cocurr-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{if(soundOn)playTone(660,.04,'sine',0.025);},{passive:true});
+  });
+  document.querySelectorAll('.form-row input,.form-row textarea').forEach(el=>{
+    el.addEventListener('focus',()=>playTone(440,.06,'sine',0.03),{passive:true});
+  });
+}
+
+/* ── TYPEWRITER ── */
+const phrases=["Capital Markets Law","IPO Compliance & SEBI Regulations","Transactional Due Diligence","Securities Law & DRHP Structuring","Contract Drafting & Compliance","AI-assisted Legal Research"];
+let pi=0,ci=0,del=false;
+const twEl=document.getElementById('tw');
+function typeStep(){
+  const w=phrases[pi];
+  if(!del){twEl.textContent=w.slice(0,ci+1);ci++;if(ci===w.length){del=true;setTimeout(typeStep,1800);return}}
+  else{twEl.textContent=w.slice(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(typeStep,300);return}}
+  setTimeout(typeStep,del?55:90);
+}
+typeStep();
+
+/* ── PROGRESS BAR ── */
+const prog=document.getElementById('progress');
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  prog.style.width=pct+'%';
+},{ passive:true });
+
+/* ── NAV ── */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>20),{passive:true});
+
+/* ── ACTIVE NAV HIGHLIGHT ── */
+const sections=['about-wrap','edu-wrap','exp-sec','pub-wrap','skills-sec','cocurr-wrap','contact-wrap'];
+const navLinks=document.querySelectorAll('.nav-links a[data-sec]');
+const secObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navLinks.forEach(a=>{
+        a.classList.toggle('active',a.dataset.sec===e.target.id);
+      });
+    }
+  });
+},{threshold:0.35});
+sections.forEach(id=>{const el=document.getElementById(id);if(el)secObs.observe(el);});
+
+/* ── CURSOR GLOW ── */
+const glow=document.getElementById('cursor-glow');
+document.addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'},{passive:true});
+
+/* ── BACK TO TOP ── */
+const btt=document.getElementById('btt');
+window.addEventListener('scroll',()=>btt.classList.toggle('show',window.scrollY>400),{passive:true});
+btt.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+/* ── DARK MODE ── */
+function toggleDark(btn,mBtn){
+  document.body.classList.toggle('dark');
+  const d=document.body.classList.contains('dark');
+  btn.textContent=d?'☀️ Light':'🌙 Dark';
+  mBtn.textContent=d?'☀️ Light Mode':'🌙 Dark Mode';
+  playClick();
+}
+const darkBtn=document.getElementById('darkBtn');
+const mobileDarkBtn=document.getElementById('mobileDarkBtn');
+darkBtn.addEventListener('click',()=>toggleDark(darkBtn,mobileDarkBtn));
+mobileDarkBtn.addEventListener('click',()=>toggleDark(darkBtn,mobileDarkBtn));
+
+/* ── HAMBURGER ── */
+const ham=document.getElementById('hamburger');
+const mob=document.getElementById('mobileMenu');
+ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');playClick();});
+document.querySelectorAll('.mob-link').forEach(a=>{
+  a.addEventListener('click',()=>{ham.classList.remove('open');mob.classList.remove('open');});
+});
+
+/* ── EDUCATION ── */
+const eg=document.getElementById('eduGrid');
+education.forEach((e,i)=>{
+  const c=document.createElement('div');c.className='edu-card fade-up';
+  c.style.transitionDelay=(i*0.1)+'s';
+  c.innerHTML=`<div class="edu-degree">${e.degree}</div><div class="edu-school">${e.school}</div><div class="edu-period">${e.period}</div><div class="edu-detail">${e.detail}</div>`;
+  eg.appendChild(c);
+});
+
+/* ── TIMELINE ── */
+const tl=document.getElementById('timeline');
+internships.forEach((d,i)=>{
+  const el=document.createElement('div');
+  el.className='tl-item';el.dataset.area=d.area;
+  el.style.transitionDelay=(i*0.08)+'s';
+  el.innerHTML=`<div class="tl-dot"></div><div class="tl-card"><div class="tl-head"><div class="firm">${d.firm}</div><span class="period">${d.period}</span></div><span class="area-tag">${d.areaLabel}</span><div class="role">${d.role}</div><ul class="tl-list">${d.highlights.map(h=>`<li>${h}</li>`).join('')}</ul></div>`;
+  tl.appendChild(el);
+});
+
+/* ── FILTER ── */
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.tl-item').forEach(item=>{
+      item.classList.toggle('hidden',f!=='all'&&item.dataset.area!==f);
+    });
+  });
+});
+
+/* ── PUBLICATIONS ── */
+const pg=document.getElementById('pubGrid');
+publications.forEach(p=>{
+  const c=document.createElement('div');c.className='pub-card fade-up';
+  c.innerHTML=`<div class="pub-j">${p.journal}</div><div class="pub-t">${p.title}</div><div class="pub-d">${p.desc}</div><a class="pub-a" href="${p.link}" target="_blank">Read Article →</a>`;
+  pg.appendChild(c);
+});
+
+/* ── SKILLS ── */
+const sg=document.getElementById('skillsGrid');
+skills.forEach(s=>{
+  const g=document.createElement('div');g.className='skill-g';
+  const isAI=s.ai;
+  const header=isAI?`<h3 style="color:var(--gold)">${s.group} <span style="font-size:.6rem;background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.4);border-radius:10px;padding:.1rem .45rem;letter-spacing:.5px">NEW</span></h3>`:`<h3>${s.group}</h3>`;
+  g.innerHTML=`${header}<div class="pills">${s.pills.map(p=>`<span class="pill${isAI?' ai':''}">${p}</span>`).join('')}</div>`;
+  sg.appendChild(g);
+});
+
+/* ── CO-CURRICULAR ── */
+const cg=document.getElementById('cocurrGrid');
+cocurr.forEach(c=>{
+  const el=document.createElement('div');el.className='cocurr-card fade-up';
+  el.innerHTML=`<div class="cocurr-icon">${c.icon}</div><div><div class="cocurr-title">${c.title}</div><div class="cocurr-sub">${c.sub}</div>${c.badge?`<span class="cocurr-badge">${c.badge}</span>`:''}</div>`;
+  cg.appendChild(el);
+});
+
+/* ── COUNTERS ── */
+function animateCounter(el,target){
+  let cur=0;const step=Math.ceil(target/40);
+  const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv);}el.textContent=cur+(target>=10?'+':'');},40);
+}
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-target]').forEach(el=>{
+        const t=parseInt(el.dataset.target);delete el.dataset.target;animateCounter(el,t);
+      });
+      statObs.unobserve(e.target);
+      playSection();
+    }
+  });
+},{threshold:0.3});
+const sg2=document.querySelector('.stats-grid');if(sg2)statObs.observe(sg2);
+
+/* ── COPY TO CLIPBOARD ── */
+function copyToClipboard(text,btn){
+  navigator.clipboard.writeText(text).then(()=>{
+    const orig=btn.textContent;btn.textContent='✓ Copied!';
+    playCopy();
+    setTimeout(()=>btn.textContent=orig,2000);
+  });
+}
+
+/* ── FORMSPREE ── */
+document.getElementById('formBtn').addEventListener('click',async()=>{
+  const n=document.getElementById('fname').value.trim();
+  const e=document.getElementById('femail').value.trim();
+  const m=document.getElementById('fmsg').value.trim();
+  if(!n||!e||!m){alert('Please fill in all fields.');return;}
+  const btn=document.getElementById('formBtn');
+  btn.textContent='Sending...';btn.disabled=true;
+  try{
+    const res=await fetch('https://formspree.io/f/mjgjznqr',{
+      method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name:n,email:e,message:m})
+    });
+    if(res.ok){
+      document.getElementById('form-success').style.display='block';
+      ['fname','femail','fmsg'].forEach(id=>document.getElementById(id).value='');
+      btn.textContent='Sent ✓';
+      playSuccess();
+    }else{btn.textContent='Failed. Try again.';btn.disabled=false;}
+  }catch{btn.textContent='Error. Try again.';btn.disabled=false;}
+});
+
+/* ── INTERSECTION OBSERVER (fade-up + tl-items) ── */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');obs.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.fade-up,.tl-item').forEach(el=>obs.observe(el));
+
+/* ── AVATAR PHOTO ── */
+const img=document.getElementById('avatarImg');
+img.src='https://i.ibb.co/Pz0Tbfsr/IMG-20240418-WA0001.png';
+img.style.display='block';
+document.getElementById('avatarFallback').style.display='none';
+img.onerror=()=>{img.style.display='none';document.getElementById('avatarFallback').style.display='flex';};
+
+/* ── WIRE SOUNDS (after DOM populated) ── */
+wireSound();
+</script>
